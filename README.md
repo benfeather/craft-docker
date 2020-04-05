@@ -1,4 +1,4 @@
 # Commands
 
 docker-compose ps
-docker exec -it <container-name> /bin/bash
+docker exec -it craft_web /bin/bash
