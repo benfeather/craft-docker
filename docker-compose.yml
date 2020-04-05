@@ -17,6 +17,8 @@ services:
             - ./cms/storage/logs:/var/www/project/storage/logs:delegated
         env_file:
             - ./docker-config/apache/.env
+        depends_on:
+            - database
             
     # MySQL
     database:
