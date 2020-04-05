@@ -1,0 +1,94 @@
+FROM php:apache
+
+# ----------------------------------------
+# Install / Update Packages
+# ----------------------------------------
+
+# General update
+RUN apt-get update
+
+# Install: ImageMagick
+RUN apt-get install --yes --quiet libmagickwand-dev && \
+    pecl install imagick && \
+    docker-php-ext-enable imagick
+
+# Install: MYSQL
+RUN docker-php-ext-install pdo_mysql
+
+# Install: Zip
+RUN apt-get install --yes --quiet libzip-dev && \
+    docker-php-ext-install zip
+
+# Install: Unzip
+RUN apt-get install --yes --quiet unzip
+
+# Install: Intl (Internationalization Support)
+RUN docker-php-ext-install intl
+
+# Install: Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
+
+# ----------------------------------------
+# Configure Apache
+# ----------------------------------------
+
+# Change document root of apache to craft-cms' default web root
+ENV APACHE_DOCUMENT_ROOT=/var/www/project/cms/web
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Enable features
+RUN a2enmod rewrite 
+RUN a2enmod ssl
+
+# Update config
+RUN touch /etc/apache2/apache2.conf && \
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# ----------------------------------------
+# Configure PHP
+# ----------------------------------------
+
+# Update config
+RUN touch /usr/local/etc/php/php.ini \
+    echo "upload_max_filesize = 10M" >> /usr/local/etc/php/php.ini && \
+    echo "post_max_size = 10M" >> /usr/local/etc/php/php.ini && \
+    echo "max_execution_time = 300" >> /usr/local/etc/php/php.ini && \
+    echo "memory_limit = 256M" >> /usr/local/etc/php/php.ini && \
+    echo "allow_url_fopen = true" >> /usr/local/etc/php/php.ini
+
+# ----------------------------------------
+# Setup Craft CMS
+# ----------------------------------------
+
+WORKDIR /var/www/project
+
+# Copy over the directories/files php needs access to
+COPY --chown=www-data:www-data ./cms/composer.* /var/www/project/cms/
+
+# Create the storage directory and make it writeable by PHP
+RUN mkdir -p /var/www/project/cms/storage && \
+    chown -R www-data:www-data /var/www/project/cms/storage
+
+# Create the cpresources directory and make it writeable by PHP
+RUN mkdir -p /var/www/project/cms/web/cpresources && \
+    chown -R www-data:www-data /var/www/project/cms/web/cpresources
+
+WORKDIR /var/www/project/cms
+
+# Do a `composer install` without running any Composer scripts
+# - If `composer.lock` is present, it will install what is in the lock file
+# - If `composer.lock` is missing, it will update to the latest dependencies and create the `composer.lock` file
+# Force permissions
+# Start apache
+CMD if [ ! -f "./composer.lock" ]; then \
+        composer install --no-scripts --optimize-autoloader --no-interaction; \
+    fi \
+    && \
+    if [ ! -d ./vendor -o ! "$(ls -A ./vendor)" ]; then \
+        composer install --no-scripts --optimize-autoloader --no-interaction; \
+    fi \
+    && \
+    chown -R www-data:www-data /var/www/project/cms/vendor \
+    && \
+    apachectl -D FOREGROUND

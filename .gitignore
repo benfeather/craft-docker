@@ -1,0 +1,23 @@
+# CRAFT ENVIRONMENT
+# .env*
+
+# COMPOSER
+/cms/vendor/*
+
+# CRAFT STORAGE
+/cms/storage/*
+
+# ASSETS
+/cms/web/assets/*
+/cms/web/cpresources/*
+
+# BUILD FILES
+node_modules
+
+# TRANSCODER
+/cms/web/transcoder/*
+
+# MISC FILES
+.idea
+.DS_Store
+.vscode
