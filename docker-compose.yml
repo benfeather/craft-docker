@@ -10,11 +10,11 @@ services:
         ports:
             - 8000:80
         volumes:
-            - cpresources:/var/www/project/cms/web/cpresources
-            - storage:/var/www/project/cms/storage
-            - ./cms:/var/www/project/cms:cached
-            - ./cms/vendor:/var/www/project/cms/vendor:delegated
-            - ./cms/storage/logs:/var/www/project/cms/storage/logs:delegated
+            - cpresources:/var/www/project/web/cpresources
+            - storage:/var/www/project/storage
+            - ./cms:/var/www/project:cached
+            - ./cms/vendor:/var/www/project/vendor:delegated
+            - ./cms/storage/logs:/var/www/project/storage/logs:delegated
         env_file:
             - ./cms/.env
             
