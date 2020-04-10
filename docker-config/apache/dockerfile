@@ -29,27 +29,23 @@ RUN docker-php-ext-install intl
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
 
 # ----------------------------------------
-# Configure Apache
+# Configure
 # ----------------------------------------
 
-# Change document root of apache to craft-cms' default web root
+# Apache: Change document root to craft-cms' default web root
 ENV APACHE_DOCUMENT_ROOT=/var/www/project/web
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# Enable features
+# Apache: Enable features
 RUN a2enmod rewrite 
 RUN a2enmod ssl
 
-# Update config
+# Apache: Update config
 RUN touch /etc/apache2/apache2.conf && \
     echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# ----------------------------------------
-# Configure PHP
-# ----------------------------------------
-
-# Update config
+# PHP: Update config
 RUN touch /usr/local/etc/php/php.ini \
     echo "upload_max_filesize = 10M" >> /usr/local/etc/php/php.ini && \
     echo "post_max_size = 10M" >> /usr/local/etc/php/php.ini && \
