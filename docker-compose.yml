@@ -10,15 +10,12 @@ services:
         ports:
             - 8080:80
         volumes:
-            - cpresources:/var/www/project/web/cpresources
-            - storage:/var/www/project/storage
             - ./cms:/var/www/project:cached
             - ./cms/vendor:/var/www/project/vendor:delegated
-            - ./cms/storage/logs:/var/www/project/storage/logs:delegated
+            - ./cms/storage/:/var/www/project/storage/:delegated
+            - ./cms/web/cpresources/:/var/www/project/web/cpresources/:delegated
         env_file:
             - ./docker-config/apache/.env
-        depends_on:
-            - database
             
     # MySQL
     database:
@@ -36,5 +33,3 @@ services:
 
 volumes:
     db-data:
-    cpresources:
-    storage:
