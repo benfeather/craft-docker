@@ -16,6 +16,8 @@ services:
             - ./cms/web/cpresources/:/var/www/project/web/cpresources/:delegated
         env_file:
             - ./docker-config/apache/.env
+        depends_on: 
+            - database
             
     # MySQL
     database:
