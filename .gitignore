@@ -14,10 +14,5 @@
 # BUILD FILES
 node_modules
 
-# TRANSCODER
-/cms/web/transcoder/*
-
 # MISC FILES
-.idea
-.DS_Store
 .vscode
