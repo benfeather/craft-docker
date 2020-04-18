@@ -1,21 +1,33 @@
 version: '3.7'
 
 services:
-    # Apache
+    # Web Server
     server:
         container_name: craft_web
         build:
             context: .
             dockerfile: ./docker-config/apache/dockerfile
         ports:
-            - 8080:80
+            - 80:80
+            - 443:443
         volumes:
-            - ./cms:/var/www/project:cached
-            - ./cms/vendor:/var/www/project/vendor:delegated
-            - ./cms/storage/:/var/www/project/storage/:delegated
-            - ./cms/web/cpresources/:/var/www/project/web/cpresources/:delegated
+            - ./cms:/var/www/html:cached
+        
+    # PHP
+    php:
+        container_name: craft_php
+        build:
+            context: .
+            dockerfile: ./docker-config/php/dockerfile
+        ports:
+            - 9000:9000
+        volumes:
+            - ./cms:/var/www/html:cached
+            - ./cms/vendor:/var/www/html/vendor:delegated
+            - ./cms/storage/:/var/www/html/storage/:delegated
+            - ./cms/web/cpresources/:/var/www/html/web/cpresources/:delegated
         env_file:
-            - ./docker-config/apache/.env
+            - ./docker-config/php/.env
         depends_on: 
             - database
             
