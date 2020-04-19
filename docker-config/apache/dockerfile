@@ -1,28 +1,18 @@
-FROM httpd:2.4
+FROM httpd:2.4-alpine
 
 # ----------------------------------------
 # Install / Update Packages
 # ----------------------------------------
 
-# General Update
-RUN apt-get update && apt-get upgrade --yes --quiet
-
-# Install Packages
-RUN apt-get install --yes --quiet \
-    nano
+RUN apk update; \
+    apk upgrade;
 
 # ----------------------------------------
 # Configure
 # ----------------------------------------
 
-# Make a backup of the default httpd config
-RUN cp /usr/local/apache2/conf/httpd.conf /usr/local/apache2/conf/httpd.conf.bak
+# Copy apache vhost file to proxy php requests to php-fpm container
+COPY ./docker-config/apache/custom.conf /usr/local/apache2/conf/custom.conf
 
-# Copy over the custom httpd config
-COPY  ./docker-config/apache/custom.conf /usr/local/apache2/conf/httpd.conf
-
-# ----------------------------------------
-# Command
-# ----------------------------------------
-
-CMD apachectl -D FOREGROUND
+# Include the custom.conf in httpd.conf
+RUN echo "Include /usr/local/apache2/conf/custom.conf" >> /usr/local/apache2/conf/httpd.conf

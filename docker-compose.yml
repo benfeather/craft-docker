@@ -7,11 +7,17 @@ services:
         build:
             context: .
             dockerfile: ./docker-config/apache/dockerfile
+        networks:
+            - frontend
+            - backend
         ports:
             - 80:80
             - 443:443
         volumes:
             - ./cms:/var/www/html:cached
+        depends_on:
+            - php
+            - database
         
     # PHP
     php:
@@ -19,6 +25,8 @@ services:
         build:
             context: .
             dockerfile: ./docker-config/php/dockerfile
+        networks:
+            - backend
         ports:
             - 9000:9000
         volumes:
@@ -38,6 +46,8 @@ services:
             context: .
             dockerfile: ./docker-config/mysql/dockerfile
         command: --default-authentication-plugin=mysql_native_password
+        networks:
+            - backend
         ports:
             - 3306:3306
         volumes:
@@ -47,3 +57,7 @@ services:
 
 volumes:
     db-data:
+
+networks:
+    frontend:
+    backend:
