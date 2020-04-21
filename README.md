@@ -6,6 +6,9 @@
 # ToDo
 
 * Add HTTP2
+* Add SSL
 * Add scripts
     * Backup DB
     * Restore DB
+    * Create and download a remote DB backup
+    * Download assets from a remote server
