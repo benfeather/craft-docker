@@ -72,7 +72,7 @@ RUN mkdir -p /var/www/html/web/cpresources && \
 # If `composer.lock` OR `/vendor` is missing, 
 # - Do a `composer install` without running any Composer scripts
 # - Force permissions
-# Start apache
+# Start php-fpm
 CMD if [ ! -f "./composer.lock" ] || [ ! -d ./vendor -o ! "$(ls -A ./vendor)" ]; then \
         composer install --no-scripts --optimize-autoloader --no-interaction; \
         chown -R www-data:www-data /var/www/html/vendor; \
