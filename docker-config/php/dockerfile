@@ -5,7 +5,9 @@ FROM php:7.4-fpm
 # ----------------------------------------
 
 # General update
-RUN apt-get update && apt-get upgrade --yes --quiet
+RUN apt-get update && \
+    apt-get upgrade --yes --quiet && \
+    apt-get install --yes --quiet nano
 
 # Install: ImageMagick
 RUN apt-get install --yes --quiet libmagickwand-dev && \
@@ -28,23 +30,27 @@ RUN docker-php-ext-install intl
 # Install: Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
 
+# Install: Prestissimo Composer Plugin
+RUN composer global require hirak/prestissimo
+
+# Install: Repman Composer Plugin
+RUN composer global require repman-io/composer-plugin
+
 # ----------------------------------------
 # Configure
 # ----------------------------------------
 
 # Use the default production configuration
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-
-# Override with custom opcache settings
-# COPY config/opcache.ini $PHP_INI_DIR/conf.d/
+RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 
 # PHP: Update config
-RUN touch /usr/local/etc/php/php.ini \
-    echo "upload_max_filesize = 10M" >> /usr/local/etc/php/php.ini && \
-    echo "post_max_size = 10M" >> /usr/local/etc/php/php.ini && \
-    echo "max_execution_time = 300" >> /usr/local/etc/php/php.ini && \
-    echo "memory_limit = 256M" >> /usr/local/etc/php/php.ini && \
-    echo "allow_url_fopen = true" >> /usr/local/etc/php/php.ini
+RUN touch $PHP_INI_DIR/conf.d/custom.ini && \
+    echo "upload_max_filesize = 10M" >> $PHP_INI_DIR/conf.d/custom.ini && \
+    echo "post_max_size = 10M" >> $PHP_INI_DIR/conf.d/custom.ini && \
+    echo "max_input_time = 300" >> $PHP_INI_DIR/conf.d/custom.ini && \
+    echo "max_execution_time = 300" >> $PHP_INI_DIR/conf.d/custom.ini && \
+    echo "memory_limit = 256M" >> $PHP_INI_DIR/conf.d/custom.ini && \
+    echo "allow_url_fopen = true" >> $PHP_INI_DIR/conf.d/custom.ini
 
 # ----------------------------------------
 # Setup Craft CMS
@@ -53,7 +59,7 @@ RUN touch /usr/local/etc/php/php.ini \
 WORKDIR /var/www/html
 
 # Copy over the directories/files php needs access to
-COPY --chown=www-data:www-data ./cms/composer.* /var/www/html/
+COPY --chown=www-data:www-data ./cms/ /var/www/html/
 
 # Create the storage directory and make it writeable by PHP
 RUN mkdir -p /var/www/html/storage && \

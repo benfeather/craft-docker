@@ -14,7 +14,8 @@ services:
             - 80:80
             - 443:443
         volumes:
-            - ./cms:/var/www/html:cached
+            - cpresources:/var/www/html/web/cpresources
+            - ./cms/web:/var/www/html/web:cached
         depends_on:
             - php
             - database
@@ -30,10 +31,11 @@ services:
         ports:
             - 9000:9000
         volumes:
-            - ./cms:/var/www/html:cached
-            - ./cms/vendor:/var/www/html/vendor:delegated
-            - ./cms/storage/:/var/www/html/storage/:delegated
-            - ./cms/web/cpresources/:/var/www/html/web/cpresources/:delegated
+            - storage:/var/www/html/storage/
+            - vendor:/var/www/html/vendor/
+            - cpresources:/var/www/html/web/cpresources/
+            - ./cms:/var/www/html/:cached
+            - ./cms/storage/logs:/var/www/html/storage/logs/:delegated
         env_file:
             - ./docker-config/php/.env
         depends_on: 
@@ -56,6 +58,9 @@ services:
             - ./docker-config/mysql/.env
 
 volumes:
+    storage:
+    vendor:
+    cpresources:
     db-data:
 
 networks:
