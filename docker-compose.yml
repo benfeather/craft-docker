@@ -36,6 +36,7 @@ services:
             - cpresources:/var/www/html/web/cpresources/
             - ./cms:/var/www/html/:cached
             - ./cms/storage/logs:/var/www/html/storage/logs/:delegated
+            - ./cms/storage/rebrand:/var/www/html/storage/rebrand/:delegated
         env_file:
             - ./docker-config/php/.env
         depends_on: 
