@@ -1,1 +1,5 @@
-FROM mysql
+FROM mysql:8
+
+RUN apt-get update && \
+    apt-get upgrade --yes --quiet && \
+    apt-get install --yes --quiet nano
