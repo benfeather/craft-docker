@@ -38,8 +38,6 @@ COPY ./docker-config/php/php-custom.ini $PHP_INI_DIR/conf.d/php-custom.ini
 # Setup Craft CMS
 # ----------------------------------------
 
-WORKDIR /var/www/html
-
 # Copy over the directories/files
 COPY ./cms/ /var/www/html/
 
