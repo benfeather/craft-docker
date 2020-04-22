@@ -1,18 +1,19 @@
-FROM httpd:2.4-alpine
+FROM httpd:2-alpine
 
 # ----------------------------------------
 # Install / Update Packages
 # ----------------------------------------
 
-RUN apk update; \
-    apk upgrade;
+RUN apk update && \
+    apk upgrade && \
+    apk add nano
 
 # ----------------------------------------
 # Configure
 # ----------------------------------------
 
-# Copy apache vhost file to proxy php requests to php-fpm container
-COPY ./docker-config/apache/custom.conf /usr/local/apache2/conf/custom.conf
+# Copy httpd-custom.conf
+COPY ./docker-config/apache/httpd-custom.conf /usr/local/apache2/conf/httpd-custom.conf
 
-# Include the custom.conf in httpd.conf
-RUN echo "Include /usr/local/apache2/conf/custom.conf" >> /usr/local/apache2/conf/httpd.conf
+# Include the httpd-custom.conf in httpd.conf
+RUN echo "Include /usr/local/apache2/conf/httpd-custom.conf" >> /usr/local/apache2/conf/httpd.conf
