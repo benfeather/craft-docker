@@ -16,6 +16,8 @@ services:
         volumes:
             - cpresources:/var/www/html/web/cpresources
             - ./cms/web:/var/www/html/web:cached
+        env_file:
+            - ./docker-config/.env
         depends_on:
             - php
             - database
@@ -38,7 +40,7 @@ services:
             - ./cms/storage/logs:/var/www/html/storage/logs/:delegated
             - ./cms/storage/rebrand:/var/www/html/storage/rebrand/:delegated
         env_file:
-            - ./docker-config/php/.env
+            - ./docker-config/.env
         depends_on: 
             - database
             
@@ -55,7 +57,7 @@ services:
         volumes:
             - db-data:/var/lib/mysql
         env_file:
-            - ./docker-config/mysql/.env
+            - ./docker-config/.env
 
 volumes:
     storage:
