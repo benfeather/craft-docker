@@ -16,8 +16,6 @@ services:
         volumes:
             - cpresources:/var/www/html/web/cpresources
             - ./cms/web:/var/www/html/web:cached
-        env_file:
-            - ./docker-config/.env
         depends_on:
             - php
             - database
