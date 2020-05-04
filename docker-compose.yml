@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-    # Web Server
     server:
         container_name: craft_web
         build:
@@ -9,27 +8,20 @@ services:
             dockerfile: ./docker-config/apache/dockerfile
         networks:
             - frontend
-            - backend
         ports:
-            - 80:80
-            - 443:443
+            - 8000:80
         volumes:
             - cpresources:/var/www/html/web/cpresources
             - ./cms/web:/var/www/html/web:cached
-        depends_on:
-            - php
-            - database
         
-    # PHP
     php:
         container_name: craft_php
         build:
             context: .
             dockerfile: ./docker-config/php/dockerfile
         networks:
+            - frontend
             - backend
-        ports:
-            - 9000:9000
         volumes:
             - storage:/var/www/html/storage/
             - vendor:/var/www/html/vendor/
@@ -39,10 +31,7 @@ services:
             - ./cms/storage/rebrand:/var/www/html/storage/rebrand/:delegated
         env_file:
             - ./docker-config/.env
-        depends_on: 
-            - database
             
-    # MySQL
     database:
         container_name: craft_db
         build:
@@ -50,8 +39,6 @@ services:
             dockerfile: ./docker-config/mysql/dockerfile
         networks:
             - backend
-        ports:
-            - 3306:3306
         volumes:
             - db-data:/var/lib/mysql
         env_file:
