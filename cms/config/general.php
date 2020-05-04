@@ -8,43 +8,33 @@
  * @see \craft\config\GeneralConfig
  */
 
+// More info: https://docs.craftcms.com/v3/config/config-settings.html
+
 return [
     // Global settings
     '*' => [
-        // Default Week Start Day (0 = Sunday, 1 = Monday...)
-        'defaultWeekStartDay' => 1,
-
-        // Whether generated URLs should omit "index.php"
-        'omitScriptNameInUrls' => true,
-
-        // Control Panel trigger word
-        'cpTrigger' => 'admin',
-
-        // The secure key Craft will use for hashing and encrypting data
+        // Env
+        'siteUrl' => getenv('SITE_URL'),
+        'devMode' => (bool)getenv('DEV_MODE'),
         'securityKey' => getenv('SECURITY_KEY'),
+        'allowUpdates' => (bool)getenv('ALLOW_UPDATES'),
+        'backupOnUpdate' => (bool)getenv('BACKUP_ON_UPDATE'),
+        'allowAdminChanges' => (bool)getenv('ALLOW_ADMIN_CHANGES'),
+        'enableTemplateCaching' => (bool)getenv('ENABLE_TEMPLATE_CACHING'),
 
-        // Whether to save the project config out to config/project.yaml
-        // (see https://docs.craftcms.com/v3/project-config.html)
+        // Constants
+        'cpTrigger' => 'admin',
+        'defaultWeekStartDay' => 1,
+        'omitScriptNameInUrls' => true,
         'useProjectConfigFile' => false,
-
-        'backupOnUpdate' => false,
     ],
 
     // Dev environment settings
-    'dev' => [
-        // Dev Mode (see https://craftcms.com/guides/what-dev-mode-does)
-        'devMode' => true,
-    ],
+    'dev' => [],
 
     // Staging environment settings
-    'staging' => [
-        // Set this to `false` to prevent administrative changes from being made on staging
-        'allowAdminChanges' => true,
-    ],
+    'staging' => [],
 
     // Production environment settings
-    'production' => [
-        // Set this to `false` to prevent administrative changes from being made on production
-        'allowAdminChanges' => true,
-    ],
+    'production' => [],
 ];
