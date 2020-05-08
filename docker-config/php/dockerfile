@@ -12,7 +12,6 @@ RUN chmod uga+x /usr/local/bin/install-php-extensions && \
 
 # Add packages
 RUN apk update && \
-    apk upgrade && \
     apk add nano && \
     install-php-extensions imagick && \
     install-php-extensions pdo_mysql && \
