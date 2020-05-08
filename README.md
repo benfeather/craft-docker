@@ -20,6 +20,7 @@ Make sure you change these!
     * `docker exec -it craft_web /bin/bash`
     * `docker exec -it craft_php /bin/bash`
     * `docker exec -it craft_db /bin/bash`
+* Prune images: `docker image prune --force`
 
 # ToDo
 
