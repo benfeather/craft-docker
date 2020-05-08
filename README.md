@@ -17,8 +17,8 @@ Make sure you change these!
 
 * List images: `docker ps` or `docker-compose ps`
 * Open image CLI: 
-    * `docker exec -it craft_web /bin/bash`
-    * `docker exec -it craft_php /bin/bash`
+    * `docker exec -it craft_web /bin/ash`
+    * `docker exec -it craft_php /bin/ash`
     * `docker exec -it craft_db /bin/bash`
 * Prune images: `docker image prune --force`
 
