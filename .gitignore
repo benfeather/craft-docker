@@ -6,6 +6,8 @@
 
 # CRAFT STORAGE
 /cms/storage/*
+/cms/config/license.key
+/cms/composer.lock
 
 # ASSETS
 /cms/web/assets/*
