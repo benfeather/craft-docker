@@ -13,24 +13,31 @@ services:
         volumes:
             - cpresources:/var/www/html/web/cpresources
             - ./cms/web:/var/www/html/web:cached
+        depends_on:
+            - php
         
     php:
         container_name: craft_php
         build:
             context: .
             dockerfile: ./docker-config/php/dockerfile
+            args:
+                USER_ID: 1000
+                GROUP_ID: 1000
         networks:
             - frontend
             - backend
         volumes:
-            - storage:/var/www/html/storage/
-            - vendor:/var/www/html/vendor/
-            - cpresources:/var/www/html/web/cpresources/
-            - ./cms:/var/www/html/:cached
-            - ./cms/storage/logs:/var/www/html/storage/logs/:delegated
-            - ./cms/storage/rebrand:/var/www/html/storage/rebrand/:delegated
+            - cpresources:/var/www/html/web/cpresources
+            - storage:/var/www/html/storage
+            - ./cms:/var/www/html:cached
+            - ./cms/vendor:/var/www/html/vendor:delegated
+            - ./cms/storage/logs:/var/www/html/storage/logs:delegated
+            - ./cms/storage/rebrand:/var/www/html/storage/rebrand:delegated
         env_file:
             - ./docker-config/.env
+        depends_on:
+            - database
             
     database:
         container_name: craft_db
@@ -47,7 +54,6 @@ services:
 
 volumes:
     storage:
-    vendor:
     cpresources:
     db-data:
 
