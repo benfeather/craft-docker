@@ -1,17 +1,13 @@
-# CRAFT ENVIRONMENT
-# .env*
+# Remove this line for actual projects
+/cms/config/license.key 
 
-# COMPOSER
-/cms/vendor/*
-
-# CRAFT STORAGE
+# CRAFT FILES
 /cms/storage/*
-/cms/config/license.key
-/cms/composer.lock
-
-# ASSETS
+!/cms/storage/rebrand/
+/cms/vendor/*
 /cms/web/assets/*
 /cms/web/cpresources/*
+/cms/composer.lock
 
 # BUILD FILES
 node_modules
