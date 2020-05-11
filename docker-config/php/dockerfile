@@ -14,16 +14,16 @@ RUN chmod uga+x /usr/local/bin/install-php-extensions && \
 RUN apk update \
     && \
     apk add --no-cache \
-        nano \
         mariadb-client \
         mariadb-connector-c \
+        nano \
         shadow \
     && \
     install-php-extensions \
         imagick \
-        pdo_mysql \
-        opcache \
         intl \
+        opcache \
+        pdo_mysql \
         zip
 
 # Install Composer and Plugins
