@@ -24,6 +24,7 @@ RUN apk update \
         intl \
         opcache \
         pdo_mysql \
+        redis \
         zip
 
 # Install Composer and Plugins

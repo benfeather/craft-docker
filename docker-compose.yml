@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+    # Apache server
     web:
         container_name: craft_web
         build:
@@ -15,7 +16,8 @@ services:
             - ./cms/web:/var/www/html/web:cached
         depends_on:
             - php
-        
+
+    # PHP server - FastCGI (FPM), OPcache
     php:
         container_name: craft_php
         build:
@@ -38,7 +40,9 @@ services:
             - ./docker-config/.env
         depends_on:
             - database
-            
+            - redis
+
+    # MySQL server
     database:
         container_name: craft_db
         build:
@@ -51,6 +55,15 @@ services:
             - db-data:/var/lib/mysql
         env_file:
             - ./docker-config/.env
+
+    # Redis - key/value database for caching & php sessions
+    redis:
+        container_name: craft_redis
+        networks:
+            - backend
+        build:
+            context: .
+            dockerfile: ./docker-config/redis/dockerfile
 
 volumes:
     storage:

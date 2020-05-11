@@ -19,8 +19,10 @@ Make sure you change these!
     * `docker exec -it craft_web /bin/ash`
     * `docker exec -it craft_php /bin/ash`
     * `docker exec -it craft_db /bin/bash`
+    * `docker exec -it craft_redis /bin/ash`
 * Prune images: `docker image prune --force`
 * List PHP modules: `docker run --rm {IMAGE_NAME} php -m` or `docker exec craft_php php -m`
+* Inspect redis: `redis-cli` then `monitor`
 
 # General
 ## Vendor files
