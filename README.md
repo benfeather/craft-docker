@@ -14,7 +14,6 @@ Make sure you change these!
 * Password: password
 
 ## Useful Commands
-
 * List images: `docker ps` or `docker-compose ps`
 * Open image CLI: 
     * `docker exec -it craft_web /bin/ash`
@@ -22,8 +21,16 @@ Make sure you change these!
     * `docker exec -it craft_db /bin/bash`
 * Prune images: `docker image prune --force`
 
-# ToDo
+# General
+## Vendor files
+If you require the vendor folder to be visible in your project folder (useful for plugin development and editor auto complete) you can do this by updating the volumes of the php service in docker-compose.
 
+Replace `vendor:/var/www/html/vendor` with `./cms/vendor:/var/www/html/vendor:delegated` 
+Delete `vendor` from `volumes`
+
+Note: doing this may have performance penalties, especially if you are not running linux natively, so be careful.
+
+# ToDo
 * Add HTTP2
 * Add SSL
 * Add scripts
