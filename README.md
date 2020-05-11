@@ -20,6 +20,7 @@ Make sure you change these!
     * `docker exec -it craft_php /bin/ash`
     * `docker exec -it craft_db /bin/bash`
 * Prune images: `docker image prune --force`
+* List PHP modules: `docker run --rm {IMAGE_NAME} php -m` or `docker exec craft_php php -m`
 
 # General
 ## Vendor files
