@@ -26,7 +26,7 @@ Make sure you change these!
 
 Testing permissions
 * Nuke root owned files/folders: `sudo rm -R cms/storage/logs/ cms/vendor/ cms/web/cpresources/ cms/composer.lock`
-* List folders and permissions: `ls -la`
+* List folders and permissions: `ls -lan`
 
 # General
 ## Vendor files
