@@ -27,10 +27,11 @@ services:
             - storage:/var/www/html/storage
             - vendor:/var/www/html/vendor
             - ./cms:/var/www/html:cached
+            - ./cms/storage/backups:/var/www/html/storage/backups:delegated
             - ./cms/storage/logs:/var/www/html/storage/logs:delegated
             - ./cms/storage/rebrand:/var/www/html/storage/rebrand:delegated
         env_file:
-            - ./docker-config/.env
+            - .env
         depends_on:
             - database
             - redis
@@ -45,7 +46,7 @@ services:
         volumes:
             - db-data:/var/lib/mysql
         env_file:
-            - ./docker-config/.env
+            - .env
 
     redis:
         networks:

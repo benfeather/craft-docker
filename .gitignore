@@ -3,6 +3,7 @@
 
 # CRAFT FILES
 /cms/storage/*
+!/cms/storage/backups/
 !/cms/storage/rebrand/
 /cms/vendor/*
 /cms/web/assets/*

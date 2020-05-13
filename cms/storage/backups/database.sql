@@ -301,6 +301,7 @@ CREATE TABLE `cms_changedattributes` (
 
 LOCK TABLES `cms_changedattributes` WRITE;
 /*!40000 ALTER TABLE `cms_changedattributes` DISABLE KEYS */;
+INSERT INTO `cms_changedattributes` VALUES (2,1,'fieldLayoutId','2020-05-13 08:39:36',0,1);
 /*!40000 ALTER TABLE `cms_changedattributes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,13 +355,14 @@ CREATE TABLE `cms_content` (
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
+  `field_bodyText` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cms_content_elementId_siteId_unq_idx` (`elementId`,`siteId`),
   KEY `cms_content_siteId_idx` (`siteId`),
   KEY `cms_content_title_idx` (`title`),
   CONSTRAINT `cms_content_elementId_fk` FOREIGN KEY (`elementId`) REFERENCES `cms_elements` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms_content_siteId_fk` FOREIGN KEY (`siteId`) REFERENCES `cms_sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -369,7 +371,7 @@ CREATE TABLE `cms_content` (
 
 LOCK TABLES `cms_content` WRITE;
 /*!40000 ALTER TABLE `cms_content` DISABLE KEYS */;
-INSERT INTO `cms_content` VALUES (1,1,1,NULL,'2020-05-04 07:16:43','2020-05-04 07:16:43','26962281-cabb-4515-800b-13dc9eabfd4e'),(2,2,1,'Home','2020-05-04 07:18:22','2020-05-04 07:18:22','166eafd7-b919-4d3c-93dd-204406fed12d'),(3,3,1,'Home','2020-05-04 07:18:22','2020-05-04 07:18:22','e7db1395-4f1b-40b9-a7a9-ca379c1838f0');
+INSERT INTO `cms_content` VALUES (1,1,1,NULL,'2020-05-04 07:16:43','2020-05-13 08:38:02','26962281-cabb-4515-800b-13dc9eabfd4e',NULL),(2,2,1,'Home','2020-05-04 07:18:22','2020-05-13 08:39:36','166eafd7-b919-4d3c-93dd-204406fed12d',NULL),(3,3,1,'Home','2020-05-04 07:18:22','2020-05-04 07:18:22','e7db1395-4f1b-40b9-a7a9-ca379c1838f0',NULL),(4,4,1,'Home','2020-05-13 08:38:37','2020-05-13 08:38:37','18148fdc-6ce8-4078-9629-cdbc534176ef',NULL),(5,5,1,'Home','2020-05-13 08:39:36','2020-05-13 08:39:36','a607fbf1-824e-44fb-a60b-8d77fd64c651',NULL);
 /*!40000 ALTER TABLE `cms_content` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -527,7 +529,7 @@ CREATE TABLE `cms_elements` (
   CONSTRAINT `cms_elements_draftId_fk` FOREIGN KEY (`draftId`) REFERENCES `cms_drafts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms_elements_fieldLayoutId_fk` FOREIGN KEY (`fieldLayoutId`) REFERENCES `cms_fieldlayouts` (`id`) ON DELETE SET NULL,
   CONSTRAINT `cms_elements_revisionId_fk` FOREIGN KEY (`revisionId`) REFERENCES `cms_revisions` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -536,7 +538,7 @@ CREATE TABLE `cms_elements` (
 
 LOCK TABLES `cms_elements` WRITE;
 /*!40000 ALTER TABLE `cms_elements` DISABLE KEYS */;
-INSERT INTO `cms_elements` VALUES (1,NULL,NULL,NULL,'craft\\elements\\User',1,0,'2020-05-04 07:16:43','2020-05-04 07:16:43',NULL,'42faa32a-0d6a-41ea-a50b-d23fb506e4bc'),(2,NULL,NULL,NULL,'craft\\elements\\Entry',1,0,'2020-05-04 07:18:22','2020-05-04 07:18:22',NULL,'4d7580b1-0b0a-4d92-b7a6-6ebb1dcb429c'),(3,NULL,1,NULL,'craft\\elements\\Entry',1,0,'2020-05-04 07:18:22','2020-05-04 07:18:22',NULL,'7382635e-ba1d-4753-854d-cfb23ab67a43');
+INSERT INTO `cms_elements` VALUES (1,NULL,NULL,NULL,'craft\\elements\\User',1,0,'2020-05-04 07:16:43','2020-05-13 08:38:02',NULL,'42faa32a-0d6a-41ea-a50b-d23fb506e4bc'),(2,NULL,NULL,1,'craft\\elements\\Entry',1,0,'2020-05-04 07:18:22','2020-05-13 08:39:36',NULL,'4d7580b1-0b0a-4d92-b7a6-6ebb1dcb429c'),(3,NULL,1,NULL,'craft\\elements\\Entry',1,0,'2020-05-04 07:18:22','2020-05-04 07:18:22',NULL,'7382635e-ba1d-4753-854d-cfb23ab67a43'),(4,NULL,2,NULL,'craft\\elements\\Entry',1,0,'2020-05-13 08:38:36','2020-05-13 08:38:36',NULL,'ad2d6566-c9da-4ab0-9eb7-b868256a49d4'),(5,NULL,3,1,'craft\\elements\\Entry',1,0,'2020-05-13 08:39:36','2020-05-13 08:39:36',NULL,'f5234c66-eae1-4cc5-a102-9fdcbcdd6289');
 /*!40000 ALTER TABLE `cms_elements` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -565,7 +567,7 @@ CREATE TABLE `cms_elements_sites` (
   KEY `cms_elements_sites_uri_siteId_idx` (`uri`,`siteId`),
   CONSTRAINT `cms_elements_sites_elementId_fk` FOREIGN KEY (`elementId`) REFERENCES `cms_elements` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms_elements_sites_siteId_fk` FOREIGN KEY (`siteId`) REFERENCES `cms_sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -574,7 +576,7 @@ CREATE TABLE `cms_elements_sites` (
 
 LOCK TABLES `cms_elements_sites` WRITE;
 /*!40000 ALTER TABLE `cms_elements_sites` DISABLE KEYS */;
-INSERT INTO `cms_elements_sites` VALUES (1,1,1,NULL,NULL,1,'2020-05-04 07:16:43','2020-05-04 07:16:43','7cdbf992-6445-463a-85ab-d3c5a6e95f40'),(2,2,1,'home','__home__',1,'2020-05-04 07:18:22','2020-05-04 07:18:22','60151cce-eebb-49cd-8067-885b05fe08d3'),(3,3,1,'home','__home__',1,'2020-05-04 07:18:22','2020-05-04 07:18:22','cd3ee733-81ad-4a7a-92c5-5116c942c9e1');
+INSERT INTO `cms_elements_sites` VALUES (1,1,1,NULL,NULL,1,'2020-05-04 07:16:43','2020-05-04 07:16:43','7cdbf992-6445-463a-85ab-d3c5a6e95f40'),(2,2,1,'home','__home__',1,'2020-05-04 07:18:22','2020-05-04 07:18:22','60151cce-eebb-49cd-8067-885b05fe08d3'),(3,3,1,'home','__home__',1,'2020-05-04 07:18:22','2020-05-04 07:18:22','cd3ee733-81ad-4a7a-92c5-5116c942c9e1'),(4,4,1,'home','__home__',1,'2020-05-13 08:38:36','2020-05-13 08:38:36','044b800a-459e-4f37-ac32-394b81277cd4'),(5,5,1,'home','__home__',1,'2020-05-13 08:39:36','2020-05-13 08:39:36','1ca66da2-4789-4a28-830c-fc79ae1c7774');
 /*!40000 ALTER TABLE `cms_elements_sites` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -618,7 +620,7 @@ CREATE TABLE `cms_entries` (
 
 LOCK TABLES `cms_entries` WRITE;
 /*!40000 ALTER TABLE `cms_entries` DISABLE KEYS */;
-INSERT INTO `cms_entries` VALUES (2,1,NULL,1,NULL,'2020-05-04 07:18:00',NULL,NULL,'2020-05-04 07:18:22','2020-05-04 07:18:22','c3886257-3ca9-4117-97f2-06cf0c484c88'),(3,1,NULL,1,NULL,'2020-05-04 07:18:00',NULL,NULL,'2020-05-04 07:18:22','2020-05-04 07:18:22','caed5d68-6f0f-442e-8986-6671edb54026');
+INSERT INTO `cms_entries` VALUES (2,1,NULL,1,NULL,'2020-05-04 07:18:00',NULL,NULL,'2020-05-04 07:18:22','2020-05-04 07:18:22','c3886257-3ca9-4117-97f2-06cf0c484c88'),(3,1,NULL,1,NULL,'2020-05-04 07:18:00',NULL,NULL,'2020-05-04 07:18:22','2020-05-04 07:18:22','caed5d68-6f0f-442e-8986-6671edb54026'),(4,1,NULL,1,NULL,'2020-05-04 07:18:00',NULL,NULL,'2020-05-13 08:38:37','2020-05-13 08:38:37','a491799b-049c-439c-969e-6f20dbd5acce'),(5,1,NULL,1,NULL,'2020-05-04 07:18:00',NULL,NULL,'2020-05-13 08:39:36','2020-05-13 08:39:36','15512f02-37ea-474b-8054-9f314a63701b');
 /*!40000 ALTER TABLE `cms_entries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -660,7 +662,7 @@ CREATE TABLE `cms_entrytypes` (
 
 LOCK TABLES `cms_entrytypes` WRITE;
 /*!40000 ALTER TABLE `cms_entrytypes` DISABLE KEYS */;
-INSERT INTO `cms_entrytypes` VALUES (1,1,NULL,'Home','home',0,NULL,'{section.name|raw}',1,'2020-05-04 07:18:22','2020-05-04 07:18:22',NULL,'a43275d4-73eb-4faa-8ed2-0d937b376691');
+INSERT INTO `cms_entrytypes` VALUES (1,1,1,'Home','home',1,'Title','{section.name|raw}',1,'2020-05-04 07:18:22','2020-05-13 08:39:36',NULL,'a43275d4-73eb-4faa-8ed2-0d937b376691');
 /*!40000 ALTER TABLE `cms_entrytypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -717,7 +719,7 @@ CREATE TABLE `cms_fieldlayoutfields` (
   CONSTRAINT `cms_fieldlayoutfields_fieldId_fk` FOREIGN KEY (`fieldId`) REFERENCES `cms_fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms_fieldlayoutfields_layoutId_fk` FOREIGN KEY (`layoutId`) REFERENCES `cms_fieldlayouts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `cms_fieldlayoutfields_tabId_fk` FOREIGN KEY (`tabId`) REFERENCES `cms_fieldlayouttabs` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -726,6 +728,7 @@ CREATE TABLE `cms_fieldlayoutfields` (
 
 LOCK TABLES `cms_fieldlayoutfields` WRITE;
 /*!40000 ALTER TABLE `cms_fieldlayoutfields` DISABLE KEYS */;
+INSERT INTO `cms_fieldlayoutfields` VALUES (1,1,1,1,0,1,'2020-05-13 08:39:36','2020-05-13 08:39:36','845a9c36-c7f9-4896-9333-a10da2129c60');
 /*!40000 ALTER TABLE `cms_fieldlayoutfields` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -746,7 +749,7 @@ CREATE TABLE `cms_fieldlayouts` (
   PRIMARY KEY (`id`),
   KEY `cms_fieldlayouts_dateDeleted_idx` (`dateDeleted`),
   KEY `cms_fieldlayouts_type_idx` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -755,6 +758,7 @@ CREATE TABLE `cms_fieldlayouts` (
 
 LOCK TABLES `cms_fieldlayouts` WRITE;
 /*!40000 ALTER TABLE `cms_fieldlayouts` DISABLE KEYS */;
+INSERT INTO `cms_fieldlayouts` VALUES (1,'craft\\elements\\Entry','2020-05-13 08:39:36','2020-05-13 08:39:36',NULL,'2ea14f51-d5b6-4fd7-bf5a-8efbc8604066');
 /*!40000 ALTER TABLE `cms_fieldlayouts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -777,7 +781,7 @@ CREATE TABLE `cms_fieldlayouttabs` (
   KEY `cms_fieldlayouttabs_sortOrder_idx` (`sortOrder`),
   KEY `cms_fieldlayouttabs_layoutId_idx` (`layoutId`),
   CONSTRAINT `cms_fieldlayouttabs_layoutId_fk` FOREIGN KEY (`layoutId`) REFERENCES `cms_fieldlayouts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -786,6 +790,7 @@ CREATE TABLE `cms_fieldlayouttabs` (
 
 LOCK TABLES `cms_fieldlayouttabs` WRITE;
 /*!40000 ALTER TABLE `cms_fieldlayouttabs` DISABLE KEYS */;
+INSERT INTO `cms_fieldlayouttabs` VALUES (1,1,'Content',1,'2020-05-13 08:39:36','2020-05-13 08:39:36','0db1e037-59de-47b2-b9dc-c3ead92f7ecc');
 /*!40000 ALTER TABLE `cms_fieldlayouttabs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -816,7 +821,7 @@ CREATE TABLE `cms_fields` (
   KEY `cms_fields_groupId_idx` (`groupId`),
   KEY `cms_fields_context_idx` (`context`),
   CONSTRAINT `cms_fields_groupId_fk` FOREIGN KEY (`groupId`) REFERENCES `cms_fieldgroups` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -825,6 +830,7 @@ CREATE TABLE `cms_fields` (
 
 LOCK TABLES `cms_fields` WRITE;
 /*!40000 ALTER TABLE `cms_fields` DISABLE KEYS */;
+INSERT INTO `cms_fields` VALUES (1,1,'Body Text','bodyText','global','',1,'none',NULL,'craft\\redactor\\Field','{\"availableTransforms\":\"*\",\"availableVolumes\":\"*\",\"cleanupHtml\":true,\"columnType\":\"text\",\"purifierConfig\":\"\",\"purifyHtml\":\"1\",\"redactorConfig\":\"\",\"removeEmptyTags\":\"1\",\"removeInlineStyles\":\"1\",\"removeNbsp\":\"1\",\"showUnpermittedFiles\":false,\"showUnpermittedVolumes\":false}','2020-05-13 08:39:19','2020-05-13 08:39:19','28cbf8b5-62ff-4e80-9747-ff57ad5b747b');
 /*!40000 ALTER TABLE `cms_fields` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -951,7 +957,7 @@ CREATE TABLE `cms_info` (
 
 LOCK TABLES `cms_info` WRITE;
 /*!40000 ALTER TABLE `cms_info` DISABLE KEYS */;
-INSERT INTO `cms_info` VALUES (1,'3.4.17.1','3.4.10',0,'[]','5RPacvRNzjFO','2020-05-04 07:16:43','2020-05-04 07:16:43','35337129-72c9-466a-9529-bd5733ab81ef');
+INSERT INTO `cms_info` VALUES (1,'3.4.18','3.4.10',0,'[]','UMRVHhraOHsJ','2020-05-04 07:16:43','2020-05-13 08:39:19','35337129-72c9-466a-9529-bd5733ab81ef');
 /*!40000 ALTER TABLE `cms_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1091,7 +1097,7 @@ CREATE TABLE `cms_plugins` (
 
 LOCK TABLES `cms_plugins` WRITE;
 /*!40000 ALTER TABLE `cms_plugins` DISABLE KEYS */;
-INSERT INTO `cms_plugins` VALUES (1,'expanded-singles','1.1.2','1.0.0','unknown',NULL,'2020-05-04 07:17:38','2020-05-04 07:17:38','2020-05-04 08:01:16','14fd313f-0b86-4aca-a5fe-c59628dc9066'),(2,'redactor','2.6.1','2.3.0','unknown',NULL,'2020-05-04 07:17:53','2020-05-04 07:17:53','2020-05-04 08:01:16','0823e82e-d3c9-4c0f-9d6a-9529310c2aad');
+INSERT INTO `cms_plugins` VALUES (1,'expanded-singles','1.1.2','1.0.0','unknown',NULL,'2020-05-04 07:17:38','2020-05-04 07:17:38','2020-05-13 08:40:01','14fd313f-0b86-4aca-a5fe-c59628dc9066'),(2,'redactor','2.6.1','2.3.0','unknown',NULL,'2020-05-04 07:17:53','2020-05-04 07:17:53','2020-05-13 08:40:01','0823e82e-d3c9-4c0f-9d6a-9529310c2aad');
 /*!40000 ALTER TABLE `cms_plugins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1115,7 +1121,7 @@ CREATE TABLE `cms_projectconfig` (
 
 LOCK TABLES `cms_projectconfig` WRITE;
 /*!40000 ALTER TABLE `cms_projectconfig` DISABLE KEYS */;
-INSERT INTO `cms_projectconfig` VALUES ('dateModified','1588579256'),('email.fromEmail','\"webmatser@benfeather.dev\"'),('email.fromName','\"Craft CMS\"'),('email.transportType','\"craft\\\\mail\\\\transportadapters\\\\Sendmail\"'),('fieldGroups.883ccb03-4728-4bb1-8464-bfd9e00f74c8.name','\"Common\"'),('plugins.expanded-singles.edition','\"standard\"'),('plugins.expanded-singles.enabled','true'),('plugins.expanded-singles.schemaVersion','\"1.0.0\"'),('plugins.expanded-singles.settings.expandSingles','\"1\"'),('plugins.expanded-singles.settings.redirectToEntry','\"1\"'),('plugins.redactor.edition','\"standard\"'),('plugins.redactor.enabled','true'),('plugins.redactor.schemaVersion','\"2.3.0\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.enableVersioning','true'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.handle','\"home\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.hasTitleField','false'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.name','\"Home\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.sortOrder','1'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.titleFormat','\"{section.name|raw}\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.titleLabel','null'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.handle','\"home\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.name','\"Home\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.propagationMethod','\"all\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.siteSettings.3b1f3df8-1db2-492c-ad15-604d6da55014.enabledByDefault','true'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.siteSettings.3b1f3df8-1db2-492c-ad15-604d6da55014.hasUrls','true'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.siteSettings.3b1f3df8-1db2-492c-ad15-604d6da55014.template','\"index\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.siteSettings.3b1f3df8-1db2-492c-ad15-604d6da55014.uriFormat','\"__home__\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.type','\"single\"'),('siteGroups.1e714bfe-af5a-4381-bf4b-c86ee212a1ac.name','\"Craft CMS\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.baseUrl','\"http://localhost:8000\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.handle','\"default\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.hasUrls','true'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.language','\"en\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.name','\"Craft CMS\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.primary','true'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.siteGroup','\"1e714bfe-af5a-4381-bf4b-c86ee212a1ac\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.sortOrder','1'),('system.edition','\"solo\"'),('system.live','true'),('system.name','\"Craft CMS\"'),('system.schemaVersion','\"3.4.10\"'),('system.timeZone','\"Pacific/Auckland\"'),('users.allowPublicRegistration','false'),('users.defaultGroup','null'),('users.photoSubpath','\"\"'),('users.photoVolumeUid','null'),('users.requireEmailVerification','true'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.handle','\"uploads\"'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.hasUrls','true'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.name','\"Uploads\"'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.settings.path','\"@webroot/uploads\"'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.sortOrder','1'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.type','\"craft\\\\volumes\\\\Local\"'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.url','\"@web/uploads\"');
+INSERT INTO `cms_projectconfig` VALUES ('dateModified','1589359175'),('email.fromEmail','\"webmatser@benfeather.dev\"'),('email.fromName','\"Craft CMS\"'),('email.transportType','\"craft\\\\mail\\\\transportadapters\\\\Sendmail\"'),('fieldGroups.883ccb03-4728-4bb1-8464-bfd9e00f74c8.name','\"Common\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.contentColumnType','\"text\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.fieldGroup','\"883ccb03-4728-4bb1-8464-bfd9e00f74c8\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.handle','\"bodyText\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.instructions','\"\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.name','\"Body Text\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.searchable','true'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.availableTransforms','\"*\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.availableVolumes','\"*\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.cleanupHtml','true'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.columnType','\"text\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.purifierConfig','\"\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.purifyHtml','\"1\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.redactorConfig','\"\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.removeEmptyTags','\"1\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.removeInlineStyles','\"1\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.removeNbsp','\"1\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.showUnpermittedFiles','false'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.settings.showUnpermittedVolumes','false'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.translationKeyFormat','null'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.translationMethod','\"none\"'),('fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.type','\"craft\\\\redactor\\\\Field\"'),('plugins.expanded-singles.edition','\"standard\"'),('plugins.expanded-singles.enabled','true'),('plugins.expanded-singles.schemaVersion','\"1.0.0\"'),('plugins.expanded-singles.settings.expandSingles','\"1\"'),('plugins.expanded-singles.settings.redirectToEntry','\"1\"'),('plugins.redactor.edition','\"standard\"'),('plugins.redactor.enabled','true'),('plugins.redactor.schemaVersion','\"2.3.0\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.enableVersioning','true'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.fieldLayouts.2ea14f51-d5b6-4fd7-bf5a-8efbc8604066.tabs.0.fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.required','false'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.fieldLayouts.2ea14f51-d5b6-4fd7-bf5a-8efbc8604066.tabs.0.fields.28cbf8b5-62ff-4e80-9747-ff57ad5b747b.sortOrder','1'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.fieldLayouts.2ea14f51-d5b6-4fd7-bf5a-8efbc8604066.tabs.0.name','\"Content\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.fieldLayouts.2ea14f51-d5b6-4fd7-bf5a-8efbc8604066.tabs.0.sortOrder','1'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.handle','\"home\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.hasTitleField','true'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.name','\"Home\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.sortOrder','1'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.titleFormat','\"{section.name|raw}\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.entryTypes.a43275d4-73eb-4faa-8ed2-0d937b376691.titleLabel','\"Title\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.handle','\"home\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.name','\"Home\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.propagationMethod','\"all\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.siteSettings.3b1f3df8-1db2-492c-ad15-604d6da55014.enabledByDefault','true'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.siteSettings.3b1f3df8-1db2-492c-ad15-604d6da55014.hasUrls','true'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.siteSettings.3b1f3df8-1db2-492c-ad15-604d6da55014.template','\"index\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.siteSettings.3b1f3df8-1db2-492c-ad15-604d6da55014.uriFormat','\"__home__\"'),('sections.ca71188c-277c-46e7-975d-eda2886a5bc6.type','\"single\"'),('siteGroups.1e714bfe-af5a-4381-bf4b-c86ee212a1ac.name','\"Craft CMS\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.baseUrl','\"http://localhost:8000\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.handle','\"default\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.hasUrls','true'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.language','\"en\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.name','\"Craft CMS\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.primary','true'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.siteGroup','\"1e714bfe-af5a-4381-bf4b-c86ee212a1ac\"'),('sites.3b1f3df8-1db2-492c-ad15-604d6da55014.sortOrder','1'),('system.edition','\"pro\"'),('system.live','true'),('system.name','\"Craft CMS\"'),('system.schemaVersion','\"3.4.10\"'),('system.timeZone','\"Pacific/Auckland\"'),('users.allowPublicRegistration','false'),('users.defaultGroup','null'),('users.photoSubpath','\"\"'),('users.photoVolumeUid','null'),('users.requireEmailVerification','true'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.handle','\"uploads\"'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.hasUrls','true'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.name','\"Uploads\"'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.settings.path','\"@webroot/uploads\"'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.sortOrder','1'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.type','\"craft\\\\volumes\\\\Local\"'),('volumes.e499ecca-7863-4664-8a2d-b8365aaaf995.url','\"@web/uploads\"');
 /*!40000 ALTER TABLE `cms_projectconfig` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1146,7 +1152,7 @@ CREATE TABLE `cms_queue` (
   PRIMARY KEY (`id`),
   KEY `cms_queue_channel_fail_timeUpdated_timePushed_idx` (`channel`,`fail`,`timeUpdated`,`timePushed`),
   KEY `cms_queue_channel_fail_timeUpdated_delay_idx` (`channel`,`fail`,`timeUpdated`,`delay`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1216,7 +1222,7 @@ CREATE TABLE `cms_resourcepaths` (
 
 LOCK TABLES `cms_resourcepaths` WRITE;
 /*!40000 ALTER TABLE `cms_resourcepaths` DISABLE KEYS */;
-INSERT INTO `cms_resourcepaths` VALUES ('15fb24ba','@app/web/assets/craftsupport/dist'),('1b54a604','@craft/web/assets/editsection/dist'),('1b69887b','@app/web/assets/updateswidget/dist'),('1b9d39a6','@lib/velocity'),('23a6a0b3','@app/web/assets/pluginstore/dist'),('240fa89b','@lib/vue'),('2582652e','@lib/element-resize-detector'),('25d3ca15','@app/web/assets/recententries/dist'),('2901e9','@craft/web/assets/feed/dist'),('2f6dce86','@craft/web/assets/dashboard/dist'),('3334ba7','@lib/jquery-ui'),('389eed98','@app/web/assets/cp/dist'),('3ce74a24','@craft/web/assets/routes/dist'),('3f3c3cad','@craft/web/assets/craftsupport/dist'),('4185a626','@app/web/assets/feed/dist'),('4b8a13b2','@craft/web/assets/plugins/dist'),('4d9ad002','@lib/velocity'),('51bd7fea','@lib/jquery.payment'),('5534a203','@lib/jquery-ui'),('562ee84d','@craft/web/assets/feed/dist'),('5c15277f','@bower/jquery/dist'),('5fe3e24a','@lib/axios'),('693bd509','@craft/web/assets/craftsupport/dist'),('7208413f','@lib/vue'),('73858c8a','@lib/element-resize-detector'),('796a2722','@craft/web/assets/dashboard/dist'),('7ba964e','@lib/jquery.payment'),('811cce9e','@lib/jquery-touch-events'),('82ee1335','@craft/web/assets/cp/dist'),('839ac417','@lib/prismjs'),('84c1367c','@lib/selectize'),('86b8f25c','@lib/picturefill'),('881dd20d','@lib/d3'),('8b952348','@craft/web/assets/pluginstore/dist'),('8e1bc25b','@craft/web/assets/utilities/dist'),('8ead72f6','@lib/xregexp'),('90c35078','@craft/web/assets/sites/dist'),('9890caa4','@craft/web/assets/updateswidget/dist'),('9e40bee','@lib/axios'),('9e50f3a2','@lib/fileupload'),('a12cedb','@bower/jquery/dist'),('a62a88ca','@craft/web/assets/recententries/dist'),('ae4aec7a','@verbb/expandedsingles/resources/dist'),('aee611b5','@lib/fabric'),('afe9ce95','@craft/web/assets/updater/dist'),('b3cda44','@app/web/assets/updater/dist'),('bba0c58b','@lib/garnishjs'),('c7b8775b','@craft/web/assets/generalsettings/dist'),('c8571a06','@lib/fileupload'),('ce972300','@craft/web/assets/updateswidget/dist'),('d0bf1bf8','@lib/picturefill'),('d2c6dfd8','@lib/selectize'),('d4e9fa91','@craft/web/assets/cp/dist'),('d59d2db3','@lib/prismjs'),('d71b273a','@lib/jquery-touch-events'),('d81c2bff','@craft/web/assets/utilities/dist'),('d8aa9b52','@lib/xregexp'),('dd6ef1cc','@verbb/base/resources/dist'),('de1a3ba9','@lib/d3'),('eda72c2f','@lib/garnishjs'),('f02d616e','@craft/web/assets/recententries/dist'),('f10ac929','@craft/web/assets/admintable/dist'),('f8e1f811','@lib/fabric'),('fb93a3d4','@app/web/assets/dashboard/dist'),('fcb0c86','@craft/web/assets/editentry/dist');
+INSERT INTO `cms_resourcepaths` VALUES ('137111f9','@craft/web/assets/cp/dist'),('155e34b0','@lib/selectize'),('15fb24ba','@app/web/assets/craftsupport/dist'),('1a0a2184','@craft/web/assets/pluginstore/dist'),('1b54a604','@craft/web/assets/editsection/dist'),('1b69887b','@app/web/assets/updateswidget/dist'),('1b9d39a6','@lib/velocity'),('1e0d4a2f','@craft/web/assets/installer/dist'),('1f32703a','@lib/xregexp'),('20cd284f','@lib/timepicker'),('23a6a0b3','@app/web/assets/pluginstore/dist'),('240fa89b','@lib/vue'),('2582652e','@lib/element-resize-detector'),('25d3ca15','@app/web/assets/recententries/dist'),('2901e9','@craft/web/assets/feed/dist'),('2f193d82','@storage/rebrand/icon'),('2f6dce86','@craft/web/assets/dashboard/dist'),('3334ba7','@lib/jquery-ui'),('37b58a06','@craft/web/assets/recententries/dist'),('389eed98','@app/web/assets/cp/dist'),('3ce74a24','@craft/web/assets/routes/dist'),('3ed2be5','@verbb/base/resources/dist'),('3f3c3cad','@craft/web/assets/craftsupport/dist'),('41201934','@lib/picturefill'),('4185a626','@app/web/assets/feed/dist'),('41a98145','@craft/web/assets/tablesettings/dist'),('44022f7f','@lib/prismjs'),('468425f6','@lib/jquery-touch-events'),('49832933','@craft/web/assets/utilities/dist'),('4b8a13b2','@craft/web/assets/plugins/dist'),('4becff79','@craft/web/assets/userpermissions/dist'),('4d9ad002','@lib/velocity'),('4f853965','@lib/d3'),('51bd7fea','@lib/jquery.payment'),('5534a203','@lib/jquery-ui'),('562ee84d','@craft/web/assets/feed/dist'),('59c818ca','@lib/fileupload'),('5c15277f','@bower/jquery/dist'),('5fe3e24a','@lib/axios'),('6095cbe5','@craft/web/assets/admintable/dist'),('693bd509','@craft/web/assets/craftsupport/dist'),('697efadd','@lib/fabric'),('69bb3330','@craft/web/assets/fields/dist'),('70c93653','@verbb/expandedsingles/resources/dist'),('7208413f','@lib/vue'),('73858c8a','@lib/element-resize-detector'),('796a2722','@craft/web/assets/dashboard/dist'),('7ba964e','@lib/jquery.payment'),('7c382ee3','@lib/garnishjs'),('811cce9e','@lib/jquery-touch-events'),('82ee1335','@craft/web/assets/cp/dist'),('839ac417','@lib/prismjs'),('84c1367c','@lib/selectize'),('86b8f25c','@lib/picturefill'),('881dd20d','@lib/d3'),('8b952348','@craft/web/assets/pluginstore/dist'),('8e1bc25b','@craft/web/assets/utilities/dist'),('8ead72f6','@lib/xregexp'),('90c35078','@craft/web/assets/sites/dist'),('90fc868','@craft/web/assets/updateswidget/dist'),('91b60325','@craft/web/assets/feed/dist'),('92ac496b','@lib/jquery-ui'),('987b0922','@lib/axios'),('9890caa4','@craft/web/assets/updateswidget/dist'),('9e40bee','@lib/axios'),('9e50f3a2','@lib/fileupload'),('a12cedb','@bower/jquery/dist'),('a434196d','@craft/web/assets/dbbackup/dist'),('a62a88ca','@craft/web/assets/recententries/dist'),('a6a589ac','@craft/web/assets/login/dist'),('ae4aec7a','@verbb/expandedsingles/resources/dist'),('aea33e61','@craft/web/assets/craftsupport/dist'),('aee611b5','@lib/fabric'),('afe9ce95','@craft/web/assets/updater/dist'),('b3cda44','@app/web/assets/updater/dist'),('b590aa57','@lib/vue'),('baced707','@vendor/craftcms/redactor/lib/redactor'),('bba0c58b','@lib/garnishjs'),('c0227d26','@lib/jquery.payment'),('c7944a87','@craft/redactor/assets/field/dist'),('c7b8775b','@craft/web/assets/generalsettings/dist'),('c853e7ee','@craft/web/assets/editentry/dist'),('c8571a06','@lib/fileupload'),('cd8a25b3','@bower/jquery/dist'),('ce972300','@craft/web/assets/updateswidget/dist'),('d0bf1bf8','@lib/picturefill'),('d2c6dfd8','@lib/selectize'),('d4e9fa91','@craft/web/assets/cp/dist'),('d59d2db3','@lib/prismjs'),('d71b273a','@lib/jquery-touch-events'),('d81c2bff','@craft/web/assets/utilities/dist'),('d8aa9b52','@lib/xregexp'),('dc05d2ce','@lib/velocity'),('dd6ef1cc','@verbb/base/resources/dist'),('de1a3ba9','@lib/d3'),('e21a8e46','@lib/element-resize-detector'),('e8f525ee','@craft/web/assets/dashboard/dist'),('eda72c2f','@lib/garnishjs'),('f02d616e','@craft/web/assets/recententries/dist'),('f10ac929','@craft/web/assets/admintable/dist'),('f3f2269d','@craft/web/assets/edituser/dist'),('f73fc682','@craft/web/assets/matrixsettings/dist'),('f8e1f811','@lib/fabric'),('fb93a3d4','@app/web/assets/dashboard/dist'),('fcb0c86','@craft/web/assets/editentry/dist');
 /*!40000 ALTER TABLE `cms_resourcepaths` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1238,7 +1244,7 @@ CREATE TABLE `cms_revisions` (
   KEY `cms_revisions_creatorId_fk` (`creatorId`),
   CONSTRAINT `cms_revisions_creatorId_fk` FOREIGN KEY (`creatorId`) REFERENCES `cms_users` (`id`) ON DELETE SET NULL,
   CONSTRAINT `cms_revisions_sourceId_fk` FOREIGN KEY (`sourceId`) REFERENCES `cms_elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1247,7 +1253,7 @@ CREATE TABLE `cms_revisions` (
 
 LOCK TABLES `cms_revisions` WRITE;
 /*!40000 ALTER TABLE `cms_revisions` DISABLE KEYS */;
-INSERT INTO `cms_revisions` VALUES (1,2,1,1,NULL);
+INSERT INTO `cms_revisions` VALUES (1,2,1,1,NULL),(2,2,1,2,NULL),(3,2,1,3,NULL);
 /*!40000 ALTER TABLE `cms_revisions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1275,7 +1281,7 @@ CREATE TABLE `cms_searchindex` (
 
 LOCK TABLES `cms_searchindex` WRITE;
 /*!40000 ALTER TABLE `cms_searchindex` DISABLE KEYS */;
-INSERT INTO `cms_searchindex` VALUES (1,'username',0,1,' admin '),(1,'firstname',0,1,''),(1,'lastname',0,1,''),(1,'fullname',0,1,''),(1,'email',0,1,' webmatser benfeather dev '),(1,'slug',0,1,''),(2,'title',0,1,' home '),(2,'slug',0,1,' home ');
+INSERT INTO `cms_searchindex` VALUES (1,'username',0,1,' admin '),(1,'lastname',0,1,''),(1,'firstname',0,1,''),(2,'title',0,1,' home '),(1,'fullname',0,1,''),(1,'email',0,1,' webmaster benfeather dev '),(1,'slug',0,1,''),(2,'slug',0,1,' home ');
 /*!40000 ALTER TABLE `cms_searchindex` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1397,7 +1403,7 @@ CREATE TABLE `cms_sessions` (
   KEY `cms_sessions_dateUpdated_idx` (`dateUpdated`),
   KEY `cms_sessions_userId_idx` (`userId`),
   CONSTRAINT `cms_sessions_userId_fk` FOREIGN KEY (`userId`) REFERENCES `cms_users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1406,7 +1412,7 @@ CREATE TABLE `cms_sessions` (
 
 LOCK TABLES `cms_sessions` WRITE;
 /*!40000 ALTER TABLE `cms_sessions` DISABLE KEYS */;
-INSERT INTO `cms_sessions` VALUES (1,1,'4PNNqNYxAsKrAlggdFiuG7YGci1abFrJmlzSUFBsKnhgXYSheXf1rDYPiP3guDvIszJVI0CaaMv_SJVzYSe4oceSROOG_TTTaKLa','2020-05-04 07:16:43','2020-05-04 07:20:46','19e4cb0a-1645-4979-a572-eb8aa54cd089'),(2,1,'K_RXvpqTvGL6Jm3VEI8S2Zbcj5Ee6z7AmwJaxatotPMtX3JtZszFJPFkGVB1b896_2RyC7PivMO_1Cc_YGd-jdQ7jV2QJDb3xZ5T','2020-05-04 07:56:27','2020-05-04 08:01:17','7659042d-3b4c-49b9-854a-ca35cf5a7078');
+INSERT INTO `cms_sessions` VALUES (1,1,'4PNNqNYxAsKrAlggdFiuG7YGci1abFrJmlzSUFBsKnhgXYSheXf1rDYPiP3guDvIszJVI0CaaMv_SJVzYSe4oceSROOG_TTTaKLa','2020-05-04 07:16:43','2020-05-04 07:20:46','19e4cb0a-1645-4979-a572-eb8aa54cd089'),(2,1,'K_RXvpqTvGL6Jm3VEI8S2Zbcj5Ee6z7AmwJaxatotPMtX3JtZszFJPFkGVB1b896_2RyC7PivMO_1Cc_YGd-jdQ7jV2QJDb3xZ5T','2020-05-04 07:56:27','2020-05-04 08:01:17','7659042d-3b4c-49b9-854a-ca35cf5a7078'),(3,1,'mrV281xysYWJ900KqUq9eBcXgEjDvihkmw75-iu2vnJImlINuNhdg236-Zszqzr23Zb1w_82rUH2NJ5neVt56KJODlkkA3E5rfrY','2020-05-12 10:35:47','2020-05-12 10:35:47','6d1e9657-d64a-4414-a319-c0417445c074'),(4,1,'hakceG1r7skhu8xjp-RqeP9RArvlhz1_CPKP9tWb3F7hyA_q-qc5w8KuOTZB7OEeuGqOvNwyEIB9HeKjuGvfQuEi_WMHEB2FHFmU','2020-05-13 08:22:39','2020-05-13 08:40:02','06460452-aa46-454e-a714-c6936beaf13c');
 /*!40000 ALTER TABLE `cms_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1958,7 +1964,7 @@ CREATE TABLE `cms_userpreferences` (
 
 LOCK TABLES `cms_userpreferences` WRITE;
 /*!40000 ALTER TABLE `cms_userpreferences` DISABLE KEYS */;
-INSERT INTO `cms_userpreferences` VALUES (1,'{\"language\":\"en\"}');
+INSERT INTO `cms_userpreferences` VALUES (1,'{\"language\":\"en\",\"weekStartDay\":\"1\",\"enableDebugToolbarForSite\":false,\"enableDebugToolbarForCp\":false,\"showExceptionView\":false,\"profileTemplates\":false}');
 /*!40000 ALTER TABLE `cms_userpreferences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2013,7 +2019,7 @@ CREATE TABLE `cms_users` (
 
 LOCK TABLES `cms_users` WRITE;
 /*!40000 ALTER TABLE `cms_users` DISABLE KEYS */;
-INSERT INTO `cms_users` VALUES (1,'admin',NULL,NULL,NULL,'webmatser@benfeather.dev','$2y$13$6APa9eknuzI5Ro0ms1LR0eUIx1x.MNnYxOJYEogrpKN.h9atWDH2K',1,0,0,0,'2020-05-04 07:56:27',NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,0,'2020-05-04 07:16:43','2020-05-04 07:16:43','2020-05-04 07:56:27','92204d17-7714-488e-960e-b68e0d8e5968');
+INSERT INTO `cms_users` VALUES (1,'admin',NULL,'','','webmaster@benfeather.dev','$2y$13$6APa9eknuzI5Ro0ms1LR0eUIx1x.MNnYxOJYEogrpKN.h9atWDH2K',1,0,0,0,'2020-05-13 08:22:39',NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,0,'2020-05-04 07:16:43','2020-05-04 07:16:43','2020-05-13 08:38:02','92204d17-7714-488e-960e-b68e0d8e5968');
 /*!40000 ALTER TABLE `cms_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2135,4 +2141,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-04  8:01:42
+-- Dump completed on 2020-05-13  8:40:11
