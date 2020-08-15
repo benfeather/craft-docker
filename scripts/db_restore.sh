@@ -9,4 +9,4 @@ LATEST_BACKUP=$(ls -t $DB_BACKUPS | head -n1)
 
 echo "Restoring: ${LATEST_BACKUP}"
 
-cat $DB_BACKUPS/$LATEST_BACKUP | docker-compose exec -T database /usr/bin/mysql --user=$DB_USER --password=$DB_PASSWORD $DB_NAME
+unzip -p $DB_BACKUPS/$LATEST_BACKUP | docker-compose exec -T database /usr/bin/mysql --user=$DB_USER --password=$DB_PASSWORD $DB_NAME
