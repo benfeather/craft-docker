@@ -1,0 +1,37 @@
+dateModified: 1596782640
+email:
+  fromEmail: webmaster@benfeather.dev
+  fromName: 'Craft CMS'
+  replyToEmail: null
+  template: ''
+  transportSettings:
+    command: ''
+  transportType: craft\mail\transportadapters\Sendmail
+plugins:
+  expanded-singles:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+    settings:
+      expandSingles: '1'
+      redirectToEntry: '1'
+  google-cloud:
+    edition: standard
+    enabled: true
+    schemaVersion: '1.1'
+  redactor:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.3.0
+system:
+  edition: pro
+  live: true
+  name: 'Craft CMS'
+  schemaVersion: 3.5.12
+  timeZone: Pacific/Auckland
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: ''
+  photoVolumeUid: null
+  requireEmailVerification: true

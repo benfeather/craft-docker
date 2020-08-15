@@ -1,0 +1,9 @@
+baseUrl: 'http://localhost/'
+enabled: true
+handle: default
+hasUrls: true
+language: en
+name: 'Craft CMS'
+primary: true
+siteGroup: 1e714bfe-af5a-4381-bf4b-c86ee212a1ac
+sortOrder: 1
