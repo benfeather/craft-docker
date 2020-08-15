@@ -16,10 +16,10 @@ Make sure you change these!
 ## Useful Commands
 * List images: `docker ps` or `docker-compose ps`
 * Open image CLI: 
-    * `docker exec -it craft_web /bin/ash`
-    * `docker exec -it craft_php /bin/ash`
-    * `docker exec -it craft_db /bin/bash`
-    * `docker exec -it craft_redis /bin/ash`
+    * `docker-compose exec web /bin/ash`
+    * `docker-compose exec php /bin/ash`
+    * `docker-compose exec db /bin/bash`
+    * `docker-compose exec redis /bin/ash`
 * Prune images: `docker image prune --force`
 * List PHP modules: `docker run --rm {IMAGE_NAME} php -m` or `docker exec craft_php php -m`
 * Inspect redis: `redis-cli` then `monitor`
