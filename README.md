@@ -2,9 +2,9 @@
 1. Open your terminal and navigate into your project's root directory 
 2. Run `docker-compose up`
 3. When the containers have are running open another terminal window and navigate to the `scripts` directory
-4. execute the `db_restore.sh` shell script
-    * Mac: `sh db_backup.sh`
-    * Windows Subsystem for Linux (WSL): `bash db_backup.sh`
+4. execute the restore shell script
+    * Mac/Linux: `sh restore_db.sh`
+    * Windows Subsystem for Linux (WSL): `bash restore_db.sh`
 5. Open your browser an go to: `http://localhost:8000/`
 
 ## Login
@@ -25,14 +25,14 @@ Make sure you change these!
 * Inspect redis: `redis-cli` then `monitor`
 
 Testing permissions
-* Nuke root owned files/folders: `sudo rm -R cms/storage/logs/ cms/vendor/ cms/web/cpresources/ cms/composer.lock`
+* Nuke root owned files/folders: `sudo rm -R src/storage/logs/ src/vendor/ src/web/cpresources/ src/composer.lock`
 * List folders and permissions: `ls -lan`
 
 # General
 ## Vendor files
 If you require the vendor folder to be visible in your project folder (useful for plugin development and editor auto complete) you can do this by updating the volumes of the php service in docker-compose.
 
-Replace `vendor:/var/www/html/vendor` with `./cms/vendor:/var/www/html/vendor:delegated` 
+Replace `vendor:/var/www/html/vendor` with `./src/vendor:/var/www/html/vendor:delegated` 
 Delete `vendor` from `volumes`
 
 Note: doing this may have performance penalties, especially if you are not running linux natively, so be careful.

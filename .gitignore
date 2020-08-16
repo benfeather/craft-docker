@@ -1,14 +1,13 @@
 # Remove this line for actual projects
-/cms/config/license.key 
+/src/config/license.key 
 
 # CRAFT FILES
-/cms/storage/*
-!/cms/storage/backups/
-!/cms/storage/rebrand/
-/cms/vendor/*
-/cms/web/assets/*
-/cms/web/cpresources/*
-/cms/composer.lock
+/src/storage/*
+!/src/storage/backups/
+!/src/storage/rebrand/
+/src/vendor/*
+/src/web/cpresources/*
+/src/composer.lock
 
 # BUILD FILES
 node_modules

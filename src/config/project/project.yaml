@@ -1,4 +1,4 @@
-dateModified: 1596782640
+dateModified: 1597548840
 email:
   fromEmail: webmaster@benfeather.dev
   fromName: 'Craft CMS'
@@ -15,10 +15,6 @@ plugins:
     settings:
       expandSingles: '1'
       redirectToEntry: '1'
-  google-cloud:
-    edition: standard
-    enabled: true
-    schemaVersion: '1.1'
   redactor:
     edition: standard
     enabled: true

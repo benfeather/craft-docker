@@ -31,8 +31,7 @@ RUN apk update \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \
     && \
     composer global require \
-        hirak/prestissimo \
-        repman-io/composer-plugin
+        hirak/prestissimo
 
 # ----------------------------------------
 # Update user
@@ -55,7 +54,7 @@ RUN usermod -u $USER_ID www-data \
 RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 
 # Copy php-custom.ini
-COPY ./docker-config/php/php-custom.ini $PHP_INI_DIR/conf.d/php-custom.ini
+COPY ./docker/php/php-custom.ini $PHP_INI_DIR/conf.d/php-custom.ini
 
 # ----------------------------------------
 # Configure Craft CMS
@@ -64,16 +63,12 @@ COPY ./docker-config/php/php-custom.ini $PHP_INI_DIR/conf.d/php-custom.ini
 WORKDIR /var/www/html
 
 # Copy Craft CMS composer files
-COPY --chown=www-data:www-data ./cms ./
+COPY --chown=www-data:www-data ./src ./
+
+# Install vendor files and update permissions
+RUN composer install --no-scripts --optimize-autoloader --no-interaction \
+    && \
+    chown -R www-data:www-data .
     
-# If `composer.lock` OR `/vendor` is missing, 
-# - Do a `composer install` without running any Composer scripts
-# Force permissions
 # Start php-fpm
-CMD if [ ! -f "./composer.lock" ] || [ ! -d ./vendor -o ! "$(ls -A ./vendor)" ]; then \
-        composer install --no-scripts --optimize-autoloader --no-interaction; \
-    fi \
-    && \
-    chown -R www-data:www-data . \
-    && \
-    php-fpm
+CMD php-fpm
