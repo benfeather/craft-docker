@@ -1,4 +1,4 @@
-dateModified: 1597548840
+dateModified: 1597817547
 email:
   fromEmail: webmaster@benfeather.dev
   fromName: 'Craft CMS'
@@ -8,6 +8,16 @@ email:
     command: ''
   transportType: craft\mail\transportadapters\Sendmail
 plugins:
+  cp-nav:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.0.7
+    settings:
+      originalNavHash:
+        __assoc__:
+          -
+            - 42faa32a-0d6a-41ea-a50b-d23fb506e4bc
+            - W3sibGFiZWwiOiJEYXNoYm9hcmQiLCJ1cmwiOiJkYXNoYm9hcmQiLCJmb250SWNvbiI6ImdhdWdlIn0seyJsYWJlbCI6IkVudHJpZXMiLCJ1cmwiOiJlbnRyaWVzIiwiZm9udEljb24iOiJzZWN0aW9uIn0seyJsYWJlbCI6IkFzc2V0cyIsInVybCI6ImFzc2V0cyIsImZvbnRJY29uIjoiYXNzZXRzIn0seyJsYWJlbCI6IlVzZXJzIiwidXJsIjoidXNlcnMiLCJmb250SWNvbiI6InVzZXJzIn0seyJsYWJlbCI6IkdyYXBoUUwiLCJ1cmwiOiJncmFwaHFsIiwiaWNvbiI6IkBhcHAvaWNvbnMvZ3JhcGhxbC5zdmciLCJzdWJuYXYiOnsic2NoZW1hcyI6eyJsYWJlbCI6IlNjaGVtYXMiLCJ1cmwiOiJncmFwaHFsL3NjaGVtYXMifSwidG9rZW5zIjp7ImxhYmVsIjoiVG9rZW5zIiwidXJsIjoiZ3JhcGhxbC90b2tlbnMifSwiZ3JhcGhpcWwiOnsibGFiZWwiOiJHcmFwaGlRTCIsInVybCI6ImdyYXBoaXFsIiwiZXh0ZXJuYWwiOnRydWV9fX0seyJ1cmwiOiJ1dGlsaXRpZXMiLCJsYWJlbCI6IlV0aWxpdGllcyIsImZvbnRJY29uIjoidG9vbCIsImJhZGdlQ291bnQiOjB9LHsidXJsIjoic2V0dGluZ3MiLCJsYWJlbCI6IlNldHRpbmdzIiwiZm9udEljb24iOiJzZXR0aW5ncyJ9LHsidXJsIjoicGx1Z2luLXN0b3JlIiwibGFiZWwiOiJQbHVnaW4gU3RvcmUiLCJmb250SWNvbiI6InBsdWdpbiJ9XQ==
   expanded-singles:
     edition: standard
     enabled: true
