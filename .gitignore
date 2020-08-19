@@ -4,6 +4,7 @@
 # CRAFT FILES
 /src/storage/*
 !/src/storage/backups/
+!/src/storage/logs/
 !/src/storage/rebrand/
 /src/vendor/*
 /src/web/cpresources/*
