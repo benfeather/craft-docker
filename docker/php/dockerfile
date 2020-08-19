@@ -63,7 +63,7 @@ COPY ./docker/php/php-custom.ini $PHP_INI_DIR/conf.d/php-custom.ini
 WORKDIR /var/www/html
 
 # Copy Craft CMS composer files
-COPY --chown=www-data:www-data ./src ./
+COPY --chown=www-data:www-data ./container ./
 
 # Install vendor files and update permissions
 RUN composer install --no-scripts --optimize-autoloader --no-interaction \

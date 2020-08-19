@@ -1,14 +1,14 @@
 # Remove this line for actual projects
-/src/config/license.key 
+/container/config/license.key 
 
 # CRAFT FILES
-/src/storage/*
-!/src/storage/backups/
-!/src/storage/logs/
-!/src/storage/rebrand/
-/src/vendor/*
-/src/web/cpresources/*
-/src/composer.lock
+/container/storage/*
+!/container/storage/backups/
+!/container/storage/logs/
+!/container/storage/rebrand/
+/container/vendor/*
+/container/web/cpresources/*
+/container/composer.lock
 
 # BUILD FILES
 node_modules

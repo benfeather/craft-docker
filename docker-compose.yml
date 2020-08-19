@@ -10,7 +10,7 @@ services:
         ports:
             - 8000:80
         volumes:
-            - ./src/web:/var/www/html/web:cached
+            - ./container/web:/var/www/html/web:cached
         depends_on:
             - php
 
@@ -22,14 +22,14 @@ services:
             - frontend
             - backend
         volumes:
-            - ./src/config:/var/www/html/config
-            - ./src/modules:/var/www/html/modules
-            - ./src/storage/backups:/var/www/html/storage/backups:delegated
-            - ./src/storage/logs:/var/www/html/storage/logs:delegated
-            - ./src/storage/rebrand:/var/www/html/storage/rebrand:delegated
-            - ./src/templates:/var/www/html/templates
-            - ./src/web:/var/www/html/web
-            - ./src/composer.json:/var/www/html/composer.json
+            - ./container/config:/var/www/html/config
+            - ./container/modules:/var/www/html/modules
+            - ./container/storage/backups:/var/www/html/storage/backups:delegated
+            - ./container/storage/logs:/var/www/html/storage/logs:delegated
+            - ./container/storage/rebrand:/var/www/html/storage/rebrand:delegated
+            - ./container/templates:/var/www/html/templates
+            - ./container/web:/var/www/html/web
+            - ./container/composer.json:/var/www/html/composer.json
         env_file:
             - ./.env
         depends_on:

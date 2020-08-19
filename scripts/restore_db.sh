@@ -3,7 +3,7 @@
 DB_USER=$(grep DB_USER ../.env | cut -d '=' -f 2-)
 DB_PASSWORD=$(grep DB_PASSWORD ../.env | cut -d '=' -f 2-)
 DB_NAME=$(grep DB_NAME ../.env | cut -d '=' -f 2-)
-DB_BACKUPS=../src/storage/backups
+DB_BACKUPS=../container/storage/backups
 
 LATEST_BACKUP=$(ls -t $DB_BACKUPS | head -n1)
 
