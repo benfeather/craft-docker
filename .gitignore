@@ -4,11 +4,9 @@
 # CRAFT FILES
 /container/storage/*
 !/container/storage/backups/
-!/container/storage/logs/
 !/container/storage/rebrand/
 /container/vendor/*
 /container/web/cpresources/*
-/container/composer.lock
 
 # BUILD FILES
 node_modules
