@@ -22,14 +22,8 @@ services:
             - frontend
             - backend
         volumes:
-            - ./container/config:/var/www/html/config
-            - ./container/modules:/var/www/html/modules
-            - ./container/storage/backups:/var/www/html/storage/backups:delegated
-            - ./container/storage/logs:/var/www/html/storage/logs:delegated
-            - ./container/storage/rebrand:/var/www/html/storage/rebrand:delegated
-            - ./container/templates:/var/www/html/templates
-            - ./container/web:/var/www/html/web
-            - ./container/composer.json:/var/www/html/composer.json
+            - ./container:/var/www/html
+            - /var/www/html/vendor
         env_file:
             - ./.env
         depends_on:
