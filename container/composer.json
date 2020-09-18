@@ -1,6 +1,6 @@
 {
   "require": {
-    "craftcms/cms": "3.5.8",
+    "craftcms/cms": "3.5.10.1",
     "craftcms/redactor": "2.7.4",
     "verbb/cp-nav": "3.0.13.1",
     "verbb/expanded-singles": "1.1.3",
