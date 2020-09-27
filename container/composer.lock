@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c81cebaf28feba1168f84ce621f9181",
+    "content-hash": "566a92ae921ab62ce9f2338779924506",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -391,11 +391,11 @@
         },
         {
             "name": "craftcms/cms",
-            "version": "3.5.10.1",
+            "version": "3.5.11.1",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/aea60a517e9befc1ac82691bd752ec751456f2c3",
-                "reference": "aea60a517e9befc1ac82691bd752ec751456f2c3",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/946a7df05545fb2533a668e0227bfc0030831ec9",
+                "reference": "946a7df05545fb2533a668e0227bfc0030831ec9",
                 "shasum": ""
             },
             "require": {
@@ -476,7 +476,7 @@
                 "docs": "https://craftcms.com/docs/3.x/",
                 "rss": "https://github.com/craftcms/cms/releases.atom"
             },
-            "time": "2020-09-16T01:12:07+00:00"
+            "time": "2020-09-18T22:07:13+00:00"
         },
         {
             "name": "craftcms/oauth2-craftid",
@@ -565,11 +565,11 @@
         },
         {
             "name": "craftcms/redactor",
-            "version": "2.7.4",
+            "version": "2.7.5",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/redactor/zipball/3af61a4d192f2272774095d1a6f31d06ed374c20",
-                "reference": "3af61a4d192f2272774095d1a6f31d06ed374c20",
+                "url": "https://api.github.com/repos/craftcms/redactor/zipball/ebbf50acd8f543b1e1d79c11a3727ab1489d7cbb",
+                "reference": "ebbf50acd8f543b1e1d79c11a3727ab1489d7cbb",
                 "shasum": ""
             },
             "require": {
@@ -610,7 +610,7 @@
                 "docs": "https://github.com/craftcms/redactor/blob/v2/README.md",
                 "rss": "https://github.com/craftcms/redactor/commits/v2.atom"
             },
-            "time": "2020-09-02T16:03:10+00:00"
+            "time": "2020-09-22T13:02:23+00:00"
         },
         {
             "name": "craftcms/server-check",
@@ -791,11 +791,11 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.20",
+            "version": "2.1.21",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/f46887bc48db66c7f38f668eb7d6ae54583617ff",
-                "reference": "f46887bc48db66c7f38f668eb7d6ae54583617ff",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/563d0cdde5d862235ffe24a158497f4d490191b5",
+                "reference": "563d0cdde5d862235ffe24a158497f4d490191b5",
                 "shasum": ""
             },
             "require": {
@@ -834,7 +834,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2020-09-06T13:44:32+00:00"
+            "time": "2020-09-19T14:37:56+00:00"
         },
         {
             "name": "elvanto/litemoji",
